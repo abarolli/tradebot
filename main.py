@@ -1,11 +1,10 @@
 from config.tradebot_config import TradeBotConfigs
-
-import asyncio
-from timeit import timeit
+from bot.tradebot import TradeBot
 
 
 def main():
-    
-    pass
+    configs = TradeBotConfigs.get_config()
+    bot = TradeBot(configs)
+    bot.get_price_history('KO', 'day', 2, 'minute', 1)
 
 main()

@@ -1,5 +1,5 @@
-import os
 from __future__ import annotations
+import os
 
 from utils import fileutils
 from utils.utils import singleton, check_singleton

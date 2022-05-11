@@ -23,6 +23,10 @@ class TradeBot:
         }
         
         res = requests.get(url, headers=headers)
-        data = res.json()
 
+        if not res.ok:
+            raise Exception("Ensure that the provided query parameters are correct and the device is connected to the internet")
+        
+        data = res.json()
         return data
+        
