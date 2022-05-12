@@ -1,5 +1,5 @@
 import os
-from typing import Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Mapping
 from ruamel.yaml import YAML
 
 
@@ -27,3 +27,10 @@ def join(*args:Iterable[str]) -> str:
 def yml_to_dict(data:str) -> dict:
     yaml = YAML()
     return yaml.load(data)
+
+
+def update_yml(_file:str, new_data:Mapping[str, str]):
+    yaml = YAML()
+    _file = os.path.normpath(os.path.abspath(_file))
+    with open(_file, 'w') as out_file:
+        yaml.dump(new_data, out_file)
