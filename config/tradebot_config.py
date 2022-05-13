@@ -37,6 +37,6 @@ class TradeBotConfigs:
 
     @check_singleton
     def write_new_access_token(self, bot:tradebot.TradeBot):
-        new_data = bot.access_token_request()
+        new_data = bot.post_access_token()
         self.update(new_data) #update self.__data
         fileutils.update_yml(settings_file, self.__data)
