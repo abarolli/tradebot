@@ -2,7 +2,6 @@ from __future__ import annotations
 import os
 from typing import Mapping
 
-
 from utils import fileutils
 from utils.utils import singleton, check_singleton
 import bot.tradebot as tradebot

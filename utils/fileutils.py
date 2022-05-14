@@ -21,6 +21,9 @@ def read(file_path:str, fn:Callable=None) -> Any:
 
 
 def join(*args:Iterable[str]) -> str:
+    '''
+    Joins and normalizes a sequence of string paths
+    '''
     return os.path.normpath(os.path.join(*args))
 
 
