@@ -5,7 +5,7 @@ from typing import Mapping
 
 from tradebot.utils import fileutils
 from tradebot.utils.utils import singleton, check_singleton
-import tradebot.bot.tradebot as tradebot
+import tradebot.backend.tradebot as tradebot
 
 
 @singleton
