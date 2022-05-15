@@ -12,7 +12,7 @@ setup(
   download_url = 'https://github.com/abarolli/trade-bot/archive/refs/tags/v0.0.1.tar.gz',
   keywords = ['stocks', 'statistics', 'rest api'],   # Keywords that define your package best
   install_requires=[  
-          'request',
+          'requests',
           'ruamel.yaml',
       ],
   classifiers=[
