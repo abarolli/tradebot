@@ -3,13 +3,13 @@ from distutils.core import setup
 setup(
   name = 'tradebot',         # How you named your package folder
   packages = ['tradebot'],   # Chose the same as "name"
-  version = '0.0.2',      # Start with a small number and increase it with every change you make
+  version = '0.0.5',      # Start with a small number and increase it with every change you make
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'A wrapper around the TDAmeritrade REST API',   # Give a short description about your library
   author = 'Adeiron Barolli',                   # Type in your name
   author_email = 'obarolli@gmail.com',      # Type in your E-Mail
   url = 'https://github.com/abarolli/trade-bot',   # Provide either the link to your github or to your website
-  download_url = 'https://github.com/abarolli/trade-bot/archive/refs/tags/v0.0.1.tar.gz',
+  download_url = 'https://github.com/abarolli/trade-bot/archive/refs/tags/v0.0.5.tar.gz',
   keywords = ['stocks', 'statistics', 'rest api'],   # Keywords that define your package best
   install_requires=[  
           'requests',
