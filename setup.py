@@ -5,7 +5,7 @@ from setuptools import find_packages
 
 setup(
   name = 'tradebot',         # How you named your package folder
-  packages = ['tradebot'],   # Chose the same as "name"
+  packages = [find_packages()],   # Chose the same as "name"
   version = '0.0.6',      # Start with a small number and increase it with every change you make
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'A wrapper around the TDAmeritrade REST API',   # Give a short description about your library
@@ -28,5 +28,4 @@ setup(
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
   ],
-  packages=[find_packages()]
 )
