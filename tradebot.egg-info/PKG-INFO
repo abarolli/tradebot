@@ -1,9 +1,9 @@
 Metadata-Version: 2.1
 Name: tradebot
-Version: 0.0.6
+Version: 0.0.7
 Summary: A wrapper around the TDAmeritrade REST API
 Home-page: https://github.com/abarolli/trade-bot
-Download-URL: https://github.com/abarolli/trade-bot/archive/refs/tags/v0.0.6.tar.gz
+Download-URL: https://github.com/abarolli/trade-bot/archive/refs/tags/v0.0.7.tar.gz
 Author: Adeiron Barolli
 Author-email: obarolli@gmail.com
 License: MIT
