@@ -1,7 +1,8 @@
 from __future__ import annotations
 from typing import Mapping, Tuple
-import config.tradebot_config as tradebot_config
-from utils.httputils import BadResponseException
+
+import tradebot.config.tradebot_config as tradebot_config
+from tradebot.utils.exceptions import BadResponseException
 
 import requests
 from urllib.parse import urlencode
