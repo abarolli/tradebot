@@ -1,1 +1,1 @@
-import tradebot_config
+from .tradebot_config import TradeBotConfigs
