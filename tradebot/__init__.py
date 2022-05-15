@@ -1,1 +1,4 @@
-import config, backend, stats, utils
+from config import *
+from backend import *
+from stats import *
+from utils import *
