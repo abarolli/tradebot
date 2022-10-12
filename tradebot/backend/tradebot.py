@@ -2,9 +2,9 @@ from __future__ import annotations
 from typing import Mapping, Tuple
 
 from tradebot.configs import TradebotConfigs
-from tradebot.utils.exceptions import BadResponseException
 
 import requests
+from requests.exceptions import RequestException
 from urllib.parse import urlencode
 
 
@@ -56,7 +56,7 @@ class TradeBot:
         res = self.__auth_request_get(url)
 
         if not res.ok:
-            raise BadResponseException(f"Ensure that the provided query parameters are correct and the device is connected to the internet")
+            raise RequestException(f"Ensure that the provided query parameters are correct and the device is connected to the internet")
         
         return res.json()
 
@@ -72,7 +72,7 @@ class TradeBot:
         res = self.__auth_request_get(url)
 
         if not res.ok:
-            raise BadResponseException(f"Ensure that the provided query parameters are correct and the device is connected to the internet")
+            raise RequestException(f"Ensure that the provided query parameters are correct and the device is connected to the internet")
             
         data = res.json()
         fundamental_data = data.get(ticker).get("fundamental")
@@ -103,6 +103,6 @@ class TradeBot:
         res = requests.post(url, data=payload)
         
         if not res.ok:
-            raise BadResponseException("Ensure that the provided query parameters are correct and the device is connected to the internet", res)
+            raise RequestException("Ensure that the provided query parameters are correct and the device is connected to the internet", res)
         
         return res.json()
