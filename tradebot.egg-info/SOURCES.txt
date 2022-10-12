@@ -10,11 +10,7 @@ tradebot.egg-info/requires.txt
 tradebot.egg-info/top_level.txt
 tradebot/backend/__init__.py
 tradebot/backend/tradebot.py
-tradebot/config/__init__.py
-tradebot/config/tradebot_config.py
-tradebot/stats/__init__.py
-tradebot/stats/price_stats.py
-tradebot/utils/__init__.py
-tradebot/utils/exceptions.py
-tradebot/utils/fileutils.py
-tradebot/utils/utils.py
+tradebot/configs/__init__.py
+tradebot/configs/tradebot_configs.py
+tradebot/requests/__init__.py
+tradebot/requests/requests.py
