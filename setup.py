@@ -4,7 +4,7 @@ from distutils.core import setup
 from setuptools import find_packages
 
 
-__version = '0.0.8'
+__version = '0.0.9'
 setup(
   name = 'tradebot',         # How you named your package folder
   packages = find_packages(),   # Chose the same as "name"
