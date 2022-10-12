@@ -1,11 +1,12 @@
-from tradebot.requests import auth_get_request
+from tradebot.requests import TradebotRequests
+from tradebot.configs import TradebotConfigs
 
-
-def get_account_info(acct_number:int, fields:str=None):
+def get_account_info(configs:TradebotConfigs, fields:str=None):
+    acct_number = configs["account_number"]
     url = f"https://api.tdameritrade.com/v1/accounts/{acct_number}"
     url_params = {"fields": fields} if fields else ''
-
-    res = auth_get_request(url, params=url_params)
+    requests = TradebotRequests(configs)
+    res = requests.auth_get(url, params=url_params)
     assert res.ok
 
     return res.json()
