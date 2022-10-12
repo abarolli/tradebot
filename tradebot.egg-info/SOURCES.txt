@@ -8,6 +8,8 @@ tradebot.egg-info/SOURCES.txt
 tradebot.egg-info/dependency_links.txt
 tradebot.egg-info/requires.txt
 tradebot.egg-info/top_level.txt
+tradebot/account/__init__.py
+tradebot/account/td_account.py
 tradebot/backend/__init__.py
 tradebot/backend/tradebot.py
 tradebot/configs/__init__.py

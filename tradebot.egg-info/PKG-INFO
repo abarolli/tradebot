@@ -1,13 +1,14 @@
 Metadata-Version: 2.1
 Name: tradebot
-Version: 0.0.8
+Version: 0.1.0
 Summary: A wrapper around the TDAmeritrade REST API
 Home-page: https://github.com/abarolli/trade-bot
-Download-URL: https://github.com/abarolli/trade-bot/archive/refs/tags/v0.0.8.tar.gz
 Author: Adeiron Barolli
 Author-email: obarolli@gmail.com
 License: MIT
+Download-URL: https://github.com/abarolli/trade-bot/archive/refs/tags/v0.1.0.tar.gz
 Keywords: stocks,statistics,rest api
+Platform: UNKNOWN
 Classifier: Development Status :: 3 - Alpha
 Classifier: Intended Audience :: Developers
 Classifier: Topic :: Software Development :: Build Tools
@@ -17,3 +18,6 @@ Classifier: Programming Language :: Python :: 3.8
 Classifier: Programming Language :: Python :: 3.9
 Classifier: Programming Language :: Python :: 3.10
 License-File: LICENSE.txt
+
+UNKNOWN
+
