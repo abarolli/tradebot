@@ -1,6 +1,5 @@
 from pprint import pprint
 from pathlib import Path
-import requests
 
 from tradebot.configs import TradebotConfigs
 from tradebot.requests import TradebotRequests
