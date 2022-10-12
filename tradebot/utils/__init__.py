@@ -1,1 +1,1 @@
-from .utils import *
+from tradebot.utils import *
