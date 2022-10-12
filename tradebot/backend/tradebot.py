@@ -2,13 +2,14 @@ from pprint import pprint
 from pathlib import Path
 
 from tradebot.configs import TradebotConfigs
-from tradebot.requests import auth_get_request, auth_post_request
+from tradebot.requests import TradebotRequests
 
 
 class Tradebot:
 
-    def __init__(self, configs:TradebotConfigs):
+    def __init__(self, configs:TradebotConfigs, requests:TradebotRequests):
         self.__configs = configs
+        self.__tb_requests = requests
 
 
     def __request_new_access_token(self, ):
@@ -22,7 +23,7 @@ class Tradebot:
             "client_id": consumer_key + "@AMER.OAUTHAP",
         }
 
-        res = auth_post_request(auth_url, data=req_body)
+        res = self.__tb_requests.auth_post(auth_url, data=req_body)
         if not res.ok:
             raise Exception("Response was not ok; could not get new access token")
 
@@ -39,7 +40,7 @@ class Tradebot:
         url = "https://api.tdameritrade.com/v1/instruments"
         url_params = {"apikey": self.__configs["consumer_key"], "symbol": ticker, "projection": "fundamental"}
         
-        res = auth_get_request(url, params=url_params)
+        res = self.__tb_requests.auth_get(url, params=url_params)
         if not res.ok:
             print("Response was not ok for the url:")
             print("URL: " + url)
@@ -51,7 +52,7 @@ class Tradebot:
     def quote(self, ticker:str):
         
         url = f"https://api.tdameritrade.com/v1/marketdata/{ticker}/quotes"
-        res = auth_get_request(url)
+        res = self.__tb_requests.auth_get(url)
         assert res.ok
 
         return res.json()
