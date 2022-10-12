@@ -1,1 +1,1 @@
-from tradebot.requests.requests import *
+from tradebot.requests.requests import TradebotRequests
