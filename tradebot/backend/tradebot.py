@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Mapping, Tuple
 
-import tradebot.config.tradebot_config as tradebot_config
+from tradebot.configs import TradebotConfigs
 from tradebot.utils.exceptions import BadResponseException
 
 import requests
@@ -11,7 +11,7 @@ from urllib.parse import urlencode
 class TradeBot:
     __base_url = "https://api.tdameritrade.com/v1/"
 
-    def __init__(self, configs:tradebot_config.TradeBotConfigs):
+    def __init__(self, configs:TradebotConfigs):
         self.__configs = configs
 
 
