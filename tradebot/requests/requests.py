@@ -20,13 +20,17 @@ class TradebotRequests:
         }
 
 
-    def auth_get(self, url:str, data:Dict=None, params:Dict=None):
+    def get(self, url:str, data:Dict=None, params:Dict=None, auth:bool=True):
 
-        self.__headers.update({"Authorization": "Bearer " + self.__configs["access_token"]})
+        if auth:
+            self.__headers.update({"Authorization": "Bearer " + self.__configs["access_token"]})
+
         return requests.get(url, data=data, params=params, headers=self.__headers)
 
 
-    def auth_post(self, url:str, data:Dict=None, params:Dict=None):
+    def post(self, url:str, data:Dict=None, params:Dict=None, auth:bool=True):
 
-        self.__headers.update({"Authorization": "Bearer " + self.__configs["access_token"]})
+        if auth:
+            self.__headers.update({"Authorization": "Bearer " + self.__configs["access_token"]})
+            
         return requests.post(url, data=data, params=params, headers=self.__headers)
