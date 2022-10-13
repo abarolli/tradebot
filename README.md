@@ -64,7 +64,7 @@ configs = TradebotConfigs(file)
 requests = TradebotRequests(configs)
 bot = Tradebot(configs, requests)
 
-msft_price_history = bot.price_history(
+aapl_price_history = bot.price_history(
     "AAPL",
     period_type=CandlePeriodType.DAY,
     period=2,
