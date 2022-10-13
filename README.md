@@ -32,7 +32,43 @@ bot = Tradebot(configs, requests)
 
 bot.update_access_token()
 ```
+Most request methods will automatically make this call internally if a 401 HTTP status code is initially recieved and reattempt the request, so the user rarely has to call this explicitly.
 
 The *refresh_token* is what is used to get a new access token. The user must follow the [same process](https://developer.tdameritrade.com/content/simple-auth-local-apps) they did to initially get the token data to get a new refresh token. Thankfully, this only expires every 90 days. 
 
 The *account_number* refers to the account number of your TDAmeritrade brokerage account and is only useful if you have a TDAmeritrade account and wish to see account info. It is not necessary to perform the other stock related functions of tradebot.
+
+Here are some code snippets to get started.
+
+**Requesting fundamental data for a given ticker:**
+```
+from pathlib import Path
+from tradebot.configs import TradebotConfigs
+from tradebot.backend import Tradebot
+from tradebot.requests import TradebotRequests
+
+file = Path(__file__).parent / "configs.json"
+configs = TradebotConfigs(file)
+requests = TradebotRequests(configs)
+bot = Tradebot(configs, requests)
+
+msft_fundamentals = bot.fundamentals("MSFT")
+```
+
+**Requesting price history:**
+```
+from tradebot.backend.enums import CandlePeriodType, CandleFrequencyType
+
+file = Path(__file__).parent / "configs.json"
+configs = TradebotConfigs(file)
+requests = TradebotRequests(configs)
+bot = Tradebot(configs, requests)
+
+msft_price_history = bot.price_history(
+    "AAPL",
+    period_type=CandlePeriodType.DAY,
+    period=2,
+    frequency_type=CandleFrequencyType.MINUTE,
+    frequency=1
+)
+```
