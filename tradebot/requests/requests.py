@@ -19,12 +19,16 @@ class TradebotRequests:
         }
 
 
+    def __update_headers(self, auth:bool):
+        auth_str = f"Bearer {self.__configs['access_token']}" if auth else None
+        self.__headers.update({"Authorization": auth_str})
+
+
     def get(self, url:str, data:Dict=None, params:Dict=None, auth:bool=True):
         '''
         Uses the ``access_token`` defined in the configs file to make a Bearer authorized request if ``auth`` is True.
         '''
-        if auth:
-            self.__headers.update({"Authorization": "Bearer " + self.__configs["access_token"]})
+        self.__update_headers(auth)
 
         return requests.get(url, data=data, params=params, headers=self.__headers)
 
@@ -33,7 +37,6 @@ class TradebotRequests:
         '''
         Uses the ``access_token`` defined in the configs file to make a Bearer authorized request if ``auth`` is True.
         '''
-        if auth:
-            self.__headers.update({"Authorization": "Bearer " + self.__configs["access_token"]})
+        self.__update_headers(auth)
 
         return requests.post(url, data=data, params=params, headers=self.__headers)
