@@ -56,3 +56,24 @@ class Tradebot:
         assert res.ok
 
         return res.json()
+
+
+    def price_history(self, ticker:str, period_type:str=None, period:int=None, frequency_type:str=None, frequency:int=None, end_date:int=None, start_date:int=None, need_extended_hours:bool=True):
+
+        url = f"https://api.tdameritrade.com/v1/marketdata/{ticker}/pricehistory"
+        api_key = self.__configs["consumer_key"]
+        params = {
+            "apikey": api_key,
+            "periodType": period_type,
+            "period": period,
+            "frequencyType": frequency_type,
+            "frequencey": frequency,
+            "endDate": end_date,
+            "startDate": start_date,
+            "needExtendedHoursData": need_extended_hours
+        }
+
+        res = self.__tb_requests.get(url, params=params)
+        assert res.ok
+
+        return res.json()
