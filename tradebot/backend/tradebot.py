@@ -1,13 +1,15 @@
-from pprint import pprint
 from requests.exceptions import RequestException
 from requests import Response
-from tradebot.backend.enums import CandleFrequencyType, CandlePeriodType
 
 from tradebot.configs import TradebotConfigs
 from tradebot.requests import TradebotRequests
+from tradebot.backend.enums import CandleFrequencyType, CandlePeriodType
 
 
 class Tradebot:
+    '''
+    Performs all the essential functionality as defined by the TDAmeritrade API.\n
+    '''
 
     def __init__(self, configs:TradebotConfigs, requests:TradebotRequests):
         self.__configs = configs
@@ -36,12 +38,17 @@ class Tradebot:
 
 
     def update_access_token(self, ):
+        '''
+        Requests a new access token and writes it to the config file.
+        '''
         new_data = self.__request_new_access_token()
         self.__configs.update(new_data)
 
 
     def fundamentals(self, ticker:str):
-
+        '''
+        Returns json containing fundamental data for the given ``ticker``.
+        '''
         url = "https://api.tdameritrade.com/v1/instruments"
         params = {"apikey": self.__configs["consumer_key"], "symbol": ticker, "projection": "fundamental"}
         
@@ -56,7 +63,9 @@ class Tradebot:
         
 
     def quote(self, ticker:str):
-        
+        '''
+        Returns json representing the quote for the given ``ticker``.
+        '''
         url = f"https://api.tdameritrade.com/v1/marketdata/{ticker}/quotes"
         res = self.__tb_requests.get(url)
         if res.status_code == 401:
