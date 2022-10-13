@@ -1,5 +1,6 @@
 from pprint import pprint
 from requests.exceptions import RequestException
+from requests import Response
 
 from tradebot.configs import TradebotConfigs
 from tradebot.requests import TradebotRequests
@@ -15,7 +16,7 @@ class Tradebot:
     def __request_new_access_token(self, ):
 
         consumer_key, refresh_token = self.__configs["consumer_key"], self.__configs["refresh_token"]
-        auth_url = "https://api.tdameritrade.com/v1/oauth2/token"
+        url = "https://api.tdameritrade.com/v1/oauth2/token"
         
         req_body = {
             "grant_type": "refresh_token",
@@ -23,9 +24,12 @@ class Tradebot:
             "client_id": consumer_key + "@AMER.OAUTHAP",
         }
 
-        res = self.__tb_requests.post(auth_url, data=req_body, auth=False)
-        if not res.ok:
-            raise Exception("Response was not ok; could not get new access token")
+        res = self.__tb_requests.post(url, data=req_body, auth=False)
+        if res.status_code == 401:
+            self.update_access_token()
+            res = self.__tb_requests.get(url, data=req_body, auth=False)
+
+        self.__assert_ok_response(res)
 
         return res.json()
 
@@ -38,13 +42,14 @@ class Tradebot:
     def fundamentals(self, ticker:str):
 
         url = "https://api.tdameritrade.com/v1/instruments"
-        url_params = {"apikey": self.__configs["consumer_key"], "symbol": ticker, "projection": "fundamental"}
+        params = {"apikey": self.__configs["consumer_key"], "symbol": ticker, "projection": "fundamental"}
         
-        res = self.__tb_requests.get(url, params=url_params)
-        if not res.ok:
-            print("Response was not ok for the url:")
-            print("URL: " + url)
-            return res
+        res = self.__tb_requests.get(url, params=params)
+        if res.status_code == 401:
+            self.update_access_token()
+            res = self.__tb_requests.get(url, params=params)
+
+        self.__assert_ok_response(res)
 
         return res.json()
         
@@ -53,7 +58,11 @@ class Tradebot:
         
         url = f"https://api.tdameritrade.com/v1/marketdata/{ticker}/quotes"
         res = self.__tb_requests.get(url)
-        assert res.ok
+        if res.status_code == 401:
+            self.update_access_token()
+            res = self.__tb_requests.get(url)
+
+        self.__assert_ok_response(res)
 
         return res.json()
 
@@ -99,7 +108,11 @@ class Tradebot:
             self.update_access_token()
             res = self.__tb_requests.get(url, params=params)
 
-        if not res.ok:
-            raise RequestException(f"The response status code was {res.status_code}", response=res)
+        self.__assert_ok_response(res)
 
         return res.json()
+
+
+    def __assert_ok_response(self, res:Response):
+        if not res.ok:
+            raise RequestException(f"The response status code was {res.status_code}", response=res)
