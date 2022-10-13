@@ -2,7 +2,7 @@ from requests.exceptions import RequestException
 from requests import Response
 
 from tradebot.configs import TradebotConfigs
-from tradebot.requests import TradebotRequests
+from tradebot.requests import TradebotRequests, assert_ok_response
 from tradebot.backend.enums import CandleFrequencyType, CandlePeriodType
 
 
@@ -28,11 +28,7 @@ class Tradebot:
         }
 
         res = self.__tb_requests.post(url, data=req_body, auth=False)
-        if res.status_code == 401:
-            self.update_access_token()
-            res = self.__tb_requests.get(url, data=req_body, auth=False)
-
-        self.__assert_ok_response(res)
+        assert_ok_response(res)
 
         return res.json()
 
@@ -53,11 +49,7 @@ class Tradebot:
         params = {"apikey": self.__configs["consumer_key"], "symbol": ticker, "projection": "fundamental"}
         
         res = self.__tb_requests.get(url, params=params)
-        if res.status_code == 401:
-            self.update_access_token()
-            res = self.__tb_requests.get(url, params=params)
-
-        self.__assert_ok_response(res)
+        assert_ok_response(res)
 
         return res.json()
         
@@ -68,11 +60,7 @@ class Tradebot:
         '''
         url = f"https://api.tdameritrade.com/v1/marketdata/{ticker}/quotes"
         res = self.__tb_requests.get(url)
-        if res.status_code == 401:
-            self.update_access_token()
-            res = self.__tb_requests.get(url)
-
-        self.__assert_ok_response(res)
+        assert_ok_response(res)
 
         return res.json()
 
@@ -124,15 +112,6 @@ class Tradebot:
         }
 
         res = self.__tb_requests.get(url, params=params)
-        if res.status_code == 401:
-            self.update_access_token()
-            res = self.__tb_requests.get(url, params=params)
-
-        self.__assert_ok_response(res)
+        assert_ok_response(res)
 
         return res.json()
-
-
-    def __assert_ok_response(self, res:Response):
-        if not res.ok:
-            raise RequestException(f"The response status code was {res.status_code}", response=res)
