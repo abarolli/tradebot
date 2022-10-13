@@ -1,5 +1,5 @@
 from pprint import pprint
-from pathlib import Path
+from requests.exceptions import RequestException
 
 from tradebot.configs import TradebotConfigs
 from tradebot.requests import TradebotRequests
@@ -58,8 +58,29 @@ class Tradebot:
         return res.json()
 
 
-    def price_history(self, ticker:str, period_type:str=None, period:int=None, frequency_type:str=None, frequency:int=None, end_date:int=None, start_date:int=None, need_extended_hours:bool=True):
-
+    def price_history(self, ticker:str, period_type:str='day', period:int=None, frequency_type:str=None, frequency:int=None, end_date:int=None, start_date:int=None, need_extended_hours:bool=True):
+        '''
+        Returns the price history for the given ``ticker`` using the conditions defined by the following params:\n
+        ``period_type``: The type of period to show. Valid values are 'day', 'month', 'year', or 'ytd' (year to date). Default is 'day'.\n
+        ``period``: number of periods of ``period_type`` to show.\n
+        Valid periods by periodType:
+            day: 1, 2, 3, 4, 5, 10
+            month: 1, 2, 3, 6
+            year: 1, 2, 3, 5, 10, 15, 20
+            ytd: 1
+        ``frequency_type``: The type of frequency with which a new candle is formed.\n
+        Valid frequencyTypes by periodType:
+            day: minute
+            month: daily, weekly
+            year: daily, weekly, monthly
+            ytd: daily, weekly
+        ``frequency``: The number of the frequencyType to be included in each candle.\n
+        Valid frequencies by frequencyType:
+            minute: 1, 5, 10, 15, 30
+            daily: 1
+            weekly: 1
+            monthly: 1
+        '''
         url = f"https://api.tdameritrade.com/v1/marketdata/{ticker}/pricehistory"
         api_key = self.__configs["consumer_key"]
         params = {
@@ -74,6 +95,11 @@ class Tradebot:
         }
 
         res = self.__tb_requests.get(url, params=params)
-        assert res.ok
+        if res.status_code == 401:
+            self.update_access_token()
+            res = self.__tb_requests.get(url, params=params)
+
+        if not res.ok:
+            raise RequestException(f"The response status code was {res.status_code}", response=res)
 
         return res.json()

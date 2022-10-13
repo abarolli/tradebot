@@ -6,7 +6,7 @@ from tradebot.configs import TradebotConfigs
 
 class TradebotRequests:
     '''
-    Performs the essential CRUD requests, using the access token defined in the config file\n
+    Performs the essential CRUD requests, using the ``access_token`` defined in the config file\n
     to perform Bearer authorization.
     '''
     def __init__(self, configs:TradebotConfigs):
