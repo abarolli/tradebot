@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Dict
 import requests
 
@@ -21,7 +20,9 @@ class TradebotRequests:
 
 
     def get(self, url:str, data:Dict=None, params:Dict=None, auth:bool=True):
-
+        '''
+        Uses the ``access_token`` defined in the configs file to make a Bearer authorized request if ``auth`` is True.
+        '''
         if auth:
             self.__headers.update({"Authorization": "Bearer " + self.__configs["access_token"]})
 
@@ -29,8 +30,10 @@ class TradebotRequests:
 
 
     def post(self, url:str, data:Dict=None, params:Dict=None, auth:bool=True):
-
+        '''
+        Uses the ``access_token`` defined in the configs file to make a Bearer authorized request if ``auth`` is True.
+        '''
         if auth:
             self.__headers.update({"Authorization": "Bearer " + self.__configs["access_token"]})
-            
+
         return requests.post(url, data=data, params=params, headers=self.__headers)
