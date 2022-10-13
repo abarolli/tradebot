@@ -1,6 +1,7 @@
 from pprint import pprint
 from requests.exceptions import RequestException
 from requests import Response
+from tradebot.backend.enums import CandleFrequencyType, CandlePeriodType
 
 from tradebot.configs import TradebotConfigs
 from tradebot.requests import TradebotRequests
@@ -67,10 +68,20 @@ class Tradebot:
         return res.json()
 
 
-    def price_history(self, ticker:str, period_type:str='day', period:int=None, frequency_type:str=None, frequency:int=None, end_date:int=None, start_date:int=None, need_extended_hours:bool=True):
+    def price_history(
+        self,
+        ticker:str,
+        period_type:CandlePeriodType=None,
+        period:int=None,
+        frequency_type:CandleFrequencyType=None,
+        frequency:int=None,
+        end_date:int=None,
+        start_date:int=None,
+        need_extended_hours:bool=True
+    ):
         '''
         Returns the price history for the given ``ticker`` using the conditions defined by the following params:\n
-        ``period_type``: The type of period to show. Valid values are 'day', 'month', 'year', or 'ytd' (year to date). Default is 'day'.\n
+        ``period_type``: The type of period to show. Valid values are 'day', 'month', 'year', or 'ytd' (year to date).\n
         ``period``: number of periods of ``period_type`` to show.\n
         Valid periods by periodType:
             day: 1, 2, 3, 4, 5, 10
@@ -94,9 +105,9 @@ class Tradebot:
         api_key = self.__configs["consumer_key"]
         params = {
             "apikey": api_key,
-            "periodType": period_type,
+            "periodType": period_type._value_,
             "period": period,
-            "frequencyType": frequency_type,
+            "frequencyType": frequency_type._value_,
             "frequencey": frequency,
             "endDate": end_date,
             "startDate": start_date,
