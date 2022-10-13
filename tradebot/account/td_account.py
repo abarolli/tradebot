@@ -1,3 +1,4 @@
+from typing import Dict, List
 from tradebot.requests import TradebotRequests, assert_ok_response
 from tradebot.configs import TradebotConfigs
 
@@ -13,6 +14,10 @@ def get_account_info(configs:TradebotConfigs, fields:str=None):
     return res.json()
 
 
-def get_positions(configs:TradebotConfigs):
+def get_positions(configs:TradebotConfigs) -> List[Dict]:
+    '''
+    Returns a list of dictionaries, each representing a position in a particular security.
+    '''
     acct_info = get_account_info(configs, "positions")
-    return acct_info
+    positions = acct_info["securitiesAccount"]["positions"]
+    return positions
