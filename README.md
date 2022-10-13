@@ -19,7 +19,7 @@ As of right now, this needs to be a json file with the following format:
 
 You must make a [developer account](https://developer.tdameritrade.com/) with TDAmeritrade to get your consumer/api key.
 
-Follow the instructions on the official TDAmeritrade API documentation on [how to generate the refresh token](https://developer.tdameritrade.com/content/simple-auth-local-apps).
+Follow the official TDAmeritrade API documentation for instructions on [generating the refresh token](https://developer.tdameritrade.com/content/simple-auth-local-apps).
 Following those instructions will provide you with the initial json you need; copy this into a json file in your source code directory. This is the central point of truth for your api configurations.
 
 The *access_token* is essential for all requests and must be kept up-to-date. This expires every 30 minutes. Thankfully, you don't have to manually create a new one. Use the following snippet as an example of how to update the access token with tradebot. This will automatically update the source json file.
