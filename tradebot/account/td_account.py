@@ -10,3 +10,8 @@ def get_account_info(configs:TradebotConfigs, fields:str=None):
     assert res.ok
 
     return res.json()
+
+
+def get_positions(configs:TradebotConfigs):
+    acct_info = get_account_info(configs, "positions")
+    return acct_info
