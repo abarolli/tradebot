@@ -1,5 +1,7 @@
 from typing import Dict
 import requests
+from requests import Response
+from requests.exceptions import RequestException
 
 from tradebot.configs import TradebotConfigs
 
@@ -40,3 +42,8 @@ class TradebotRequests:
         self.__update_headers(auth)
 
         return requests.post(url, data=data, params=params, headers=self.__headers)
+
+
+def assert_ok_response(res:Response):
+        if not res.ok:
+            raise RequestException(f"The response status code was {res.status_code}", response=res)
