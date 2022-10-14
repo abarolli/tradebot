@@ -19,5 +19,14 @@ def get_positions(configs:TradebotConfigs) -> List[Dict]:
     Returns a list of dictionaries, each representing a position in a particular security.
     '''
     acct_info = get_account_info(configs, "positions")
-    positions = acct_info["securitiesAccount"]["positions"]
+    positions = acct_info.get("securitiesAccount", dict()).get("positions", dict())
     return positions
+
+
+def get_orders(configs:TradebotConfigs):
+    '''
+    Returns a list of dictionaries, each representing an order.
+    '''
+    acct_info = get_account_info(configs, "orders")
+    orders = acct_info.get("securitiesAccount", dict()).get("orders", dict())
+    return orders
