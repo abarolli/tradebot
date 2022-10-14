@@ -14,19 +14,34 @@ def get_account_info(configs:TradebotConfigs, fields:str=None):
     return res.json()
 
 
-def get_positions(configs:TradebotConfigs) -> List[Dict]:
+def get_balances(configs:TradebotConfigs):
     '''
-    Returns a list of dictionaries, each representing a position in a particular security.
+    Returns a Dictionary containing balances for the account defined by ``account_number`` in the config file.
+    '''
+    acct_info = get_account_info(configs)
+    sec_acct = acct_info.get("securitiesAccount", dict())
+    balances = {
+        "currentBalances": sec_acct.get("currentBalances", None),
+        "initialBalances": sec_acct.get("initialBalances", None),
+        "projectedBalances": sec_acct.get("projectedBalances", None)
+    }
+    return balances
+
+
+def get_positions(configs:TradebotConfigs) -> List[Dict] | None:
+    '''
+    Returns a list of dictionaries, each representing a position in a particular security.\n
+    Returns None if the user doesn't have any positions.
     '''
     acct_info = get_account_info(configs, "positions")
-    positions = acct_info.get("securitiesAccount", dict()).get("positions", dict())
+    positions = acct_info.get("securitiesAccount", dict()).get("positions", None)
     return positions
 
 
-def get_orders(configs:TradebotConfigs):
+def get_orders(configs:TradebotConfigs) -> List[Dict] | None:
     '''
     Returns a list of dictionaries, each representing an order.
     '''
     acct_info = get_account_info(configs, "orders")
-    orders = acct_info.get("securitiesAccount", dict()).get("orders", dict())
+    orders = acct_info.get("securitiesAccount", dict()).get("orderStrategies", None)
     return orders
