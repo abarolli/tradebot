@@ -16,31 +16,6 @@ class Tradebot:
         self.__tb_requests = requests
 
 
-    def __request_new_access_token(self, ):
-
-        consumer_key, refresh_token = self.__configs["consumer_key"], self.__configs["refresh_token"]
-        url = "https://api.tdameritrade.com/v1/oauth2/token"
-        
-        req_body = {
-            "grant_type": "refresh_token",
-            "refresh_token": refresh_token,
-            "client_id": consumer_key + "@AMER.OAUTHAP",
-        }
-
-        res = self.__tb_requests.post(url, data=req_body, auth=False)
-        assert_ok_response(res)
-
-        return res.json()
-
-
-    def update_access_token(self, ):
-        '''
-        Requests a new access token and writes it to the config file.
-        '''
-        new_data = self.__request_new_access_token()
-        self.__configs.update(new_data)
-
-
     def fundamentals(self, ticker:str):
         '''
         Returns json containing fundamental data for the given ``ticker``.
