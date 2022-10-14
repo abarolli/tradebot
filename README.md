@@ -25,14 +25,13 @@ Following those instructions will provide you with the initial json you need; co
 The *access_token* is essential for all requests and must be kept up-to-date. This expires every 30 minutes. Thankfully, you don't have to manually create a new one. Use the following snippet as an example of how to update the access token with tradebot. This will automatically update the source json file.
 
 ```
-file = Path(__file__).parent / "configs.json"
-configs = TradebotConfigs(file)
-requests = TradebotRequests(configs)
-bot = Tradebot(configs, requests)
+from pathlib import Path
+from tradebot.configs.utils import update_access_token
 
-bot.update_access_token()
+config_file = Path(__file__).parent / "configs.json"
+configs = TradebotConfigs(config_file)
+update_access_token(configs)
 ```
-Most request methods will automatically make this call internally if a 401 HTTP status code is initially recieved and reattempt the request, so the user rarely has to call this explicitly.
 
 The *refresh_token* is what is used to get a new access token. The user must follow the [same process](https://developer.tdameritrade.com/content/simple-auth-local-apps) they did to initially get the token data to get a new refresh token. Thankfully, this only expires every 90 days. 
 
