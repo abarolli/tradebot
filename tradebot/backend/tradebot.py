@@ -8,7 +8,7 @@ from tradebot.backend.enums import CandleFrequencyType, CandlePeriodType
 
 class Tradebot:
     '''
-    Performs all the essential functionality as defined by the TDAmeritrade API.\n
+    Performs all the essential functionality related to stocks/securities, as defined by the TDAmeritrade API.\n
     '''
 
     def __init__(self, configs:TradebotConfigs, requests:TradebotRequests):
