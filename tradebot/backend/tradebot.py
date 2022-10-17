@@ -1,5 +1,3 @@
-from requests.exceptions import RequestException
-from requests import Response
 
 from tradebot.configs import TradebotConfigs
 from tradebot.requests import TradebotRequests, assert_ok_response
@@ -11,9 +9,9 @@ class Tradebot:
     Performs all the essential functionality related to stocks/securities, as defined by the TDAmeritrade API.\n
     '''
 
-    def __init__(self, configs:TradebotConfigs, requests:TradebotRequests):
+    def __init__(self, configs:TradebotConfigs):
         self.__configs = configs
-        self.__tb_requests = requests
+        self.__tb_requests = TradebotRequests(configs)
 
 
     def fundamentals(self, ticker:str):
